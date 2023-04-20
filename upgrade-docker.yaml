@@ -1,6 +1,11 @@
 ---
 - hosts: all
   tasks:
+  - name: Add Docker repo
+    get_url:
+      url: https://download.docker.com/linux/centos/docker-ce.repo
+      dest: /etc/yum.repos.d/docker-ce.repo
+
   - name: Install docker-buildx-plugin
     ansible.builtin.yum:
       name: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-buildx-plugin-0.10.4-1.el7.x86_64.rpm
@@ -13,15 +18,24 @@
     ansible.builtin.yum:
       name: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-compose-plugin-2.6.0-3.el7.x86_64.rpm
       state: present
-  - name: Install docker-ce
-    ansible.builtin.yum:
-      name: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-23.0.4-1.el7.x86_64.rpm
-      state: present
-  - name: Install docker-ce-cli
-    ansible.builtin.yum:
-      name: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-cli-23.0.4-1.el7.x86_64.rpm
-      state: present
-  - name: Install docker-ce-rootless-extras
-    ansible.builtin.yum:
-      name:   https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-rootless-extras-23.0.4-1.el7.x86_64.rpm
-      state: present
+
+  - name: Upgrade Docker
+    yum:
+      name:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+      state: latest
+
+  # - name: Install docker-ce
+  #   ansible.builtin.yum:
+  #     name: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-23.0.4-1.el7.x86_64.rpm
+  #     state: present
+  # - name: Install docker-ce-cli
+  #   ansible.builtin.yum:
+  #     name: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-cli-23.0.4-1.el7.x86_64.rpm
+  #     state: present
+  # - name: Install docker-ce-rootless-extras
+  #   ansible.builtin.yum:
+  #     name:   https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-rootless-extras-23.0.4-1.el7.x86_64.rpm
+  #     state: present
