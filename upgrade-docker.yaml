@@ -1,6 +1,5 @@
 ---
 - hosts: all
-  sudo: true
   tasks:
   - name: Download docker-buildx-plugin
     ansible.builtin.get_url:
