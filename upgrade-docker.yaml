@@ -1,44 +1,27 @@
 ---
 - hosts: all
   tasks:
-  - name: Create temporary build directory
-    ansible.builtin.tempfile:
-      state: directory
-      suffix: dockerupgrade
-    register: temp_dir
-
-  - name: Download docker-buildx-plugin
-    ansible.builtin.get_url:
-      url: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-buildx-plugin-0.10.4-1.el7.x86_64.rpm
-      dest: "{{ temp_dir.path }}"
-      mode: '0440'
-
-  - name: Download containerd.io
-    ansible.builtin.get_url:
-      url: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.6.9-3.1.el7.x86_64.rpm
-      dest: "{{ temp_dir.path }}"
-      mode: '0440'
-  
-  - name: Download docker-compose-plugin
-    ansible.builtin.get_url:
-      url: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-compose-plugin-2.6.0-3.el7.x86_64.rpm
-      dest: "{{ temp_dir.path }}"
-      mode: '0440'
-
-  - name: Download docker-ce
-    ansible.builtin.get_url:
-      url: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-23.0.4-1.el7.x86_64.rpm
-      dest: "{{ temp_dir.path }}"
-      mode: '0440'
-
-  - name: Download docker-ce-cli
-    ansible.builtin.get_url:
-      url: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-cli-23.0.4-1.el7.x86_64.rpm
-      dest: "{{ temp_dir.path }}"
-      mode: '0440'
-
-  - name: Download docker-ce-rootless-extras
-    ansible.builtin.get_url:
-      url: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-rootless-extras-23.0.4-1.el7.x86_64.rpm
-      dest: "{{ temp_dir.path }}"
-      mode: '0440'
+  - name: Install docker-buildx-plugin
+    ansible.builtin.yum:
+      name: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-buildx-plugin-0.10.4-1.el7.x86_64.rpm
+      state: present
+  # - name: Install containerd.io
+  #   ansible.builtin.yum:
+  #     name: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.6.9-3.1.el7.x86_64.rpm
+  #     state: present
+  # - name: Install docker-compose-plugin
+  #   ansible.builtin.yum:
+  #     name: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-compose-plugin-2.6.0-3.el7.x86_64.rpm
+  #     state: present
+  # - name: Install docker-ce
+  #   ansible.builtin.yum:
+  #     name: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-23.0.4-1.el7.x86_64.rpm
+  #     state: present
+  # - name: Install docker-ce-cli
+  #   ansible.builtin.yum:
+  #     name: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-cli-23.0.4-1.el7.x86_64.rpm
+  #     state: present
+  # - name: Install docker-ce-rootless-extras
+  #   ansible.builtin.yum:
+  #     name:   https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-rootless-extras-23.0.4-1.el7.x86_64.rpm
+  #     state: present
