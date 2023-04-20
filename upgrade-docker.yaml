@@ -1,8 +1,13 @@
 ---
 - hosts: all
   tasks:
+  - name: Create temporary build directory
+    ansible.builtin.tempfile:
+      state: directory
+      suffix: dockerupgrade-23.0.4
+    register: temp_dir
   - name: Download docker-buildx-plugin
     ansible.builtin.get_url:
-      url: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-buildx-plugin-0.10.2-1.el7.x86_64.rpm
-      dest: /tmp/docker-buildx-plugin-0.10.2-1.el7.x86_64.rpm
+      url: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-buildx-plugin-0.10.4-1.el7.x86_64.rpm
+      dest: "{{ temp_dir.path }}"
       mode: '0440'
