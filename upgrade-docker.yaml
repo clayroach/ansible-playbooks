@@ -1,5 +1,6 @@
 ---
 - hosts: all
+  serial: 3
   tasks:
   - name: Add Docker repo
     get_url:
@@ -22,16 +23,3 @@
         - docker-ce-cli
         - containerd.io
       state: latest
-
-  # - name: Install docker-ce
-  #   ansible.builtin.yum:
-  #     name: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-23.0.4-1.el7.x86_64.rpm
-  #     state: present
-  # - name: Install docker-ce-cli
-  #   ansible.builtin.yum:
-  #     name: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-cli-23.0.4-1.el7.x86_64.rpm
-  #     state: present
-  # - name: Install docker-ce-rootless-extras
-  #   ansible.builtin.yum:
-  #     name:   https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-rootless-extras-23.0.4-1.el7.x86_64.rpm
-  #     state: present
